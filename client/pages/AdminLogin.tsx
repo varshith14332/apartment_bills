@@ -204,10 +204,10 @@ export default function AdminLogin() {
             </p>
             <div className="space-y-2 text-xs bg-secondary rounded p-3">
               <p>
-                <strong>Email:</strong> admin@apartment.local
+                <strong>Email:</strong> ramanjaneyulucherala@gmail.com
               </p>
               <p>
-                <strong>Password:</strong> admin123
+                <strong>Password:</strong> bnr@2025
               </p>
             </div>
           </div>
