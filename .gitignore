@@ -25,3 +25,10 @@ dist-ssr
 
 .config/
 !.env
+
+# Netlify
+.netlify
+.netlify/cache
+
+# Vercel (deprecated)
+.vercel
