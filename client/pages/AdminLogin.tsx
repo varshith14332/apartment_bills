@@ -58,7 +58,11 @@ export default function AdminLogin() {
     e.preventDefault();
     setError("");
 
-    if (!formData.email || !formData.password) {
+    // Trim whitespace from email and password
+    const email = formData.email.trim();
+    const password = formData.password.trim();
+
+    if (!email || !password) {
       setError("Please enter both email and password");
       return;
     }
@@ -71,7 +75,7 @@ export default function AdminLogin() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({ email, password }),
       });
 
       if (!response.ok) {
@@ -196,21 +200,6 @@ export default function AdminLogin() {
               {isLoading ? "Logging in..." : "Login"}
             </Button>
           </form>
-
-          {/* Demo Info */}
-          <div className="mt-6 pt-6 border-t border-border">
-            <p className="text-xs text-muted-foreground text-center mb-3">
-              Demo Credentials
-            </p>
-            <div className="space-y-2 text-xs bg-secondary rounded p-3">
-              <p>
-                <strong>Email:</strong> ramanjaneyulucherala@gmail.com
-              </p>
-              <p>
-                <strong>Password:</strong> bnr@2025
-              </p>
-            </div>
-          </div>
         </Card>
 
         {/* Help Text */}
