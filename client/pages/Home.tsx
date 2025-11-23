@@ -282,7 +282,10 @@ export default function Home() {
       </section>
 
       {/* Features Section */}
-      <section className="py-16 md:py-24">
+      <section className="py-16 md:py-24 relative bg-gradient-to-b from-slate-50/40 via-background to-slate-50/40 overflow-hidden">
+        {/* Decorative background elements */}
+        <div className="absolute top-0 right-0 w-96 h-96 bg-blue-200/10 rounded-full filter blur-3xl -z-10"></div>
+        <div className="absolute bottom-0 left-0 w-96 h-96 bg-purple-200/10 rounded-full filter blur-3xl -z-10"></div>
         <div className="container mx-auto px-4">
           <h2
             className="text-3xl md:text-4xl font-bold text-foreground mb-12 text-center fade-in"
