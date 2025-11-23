@@ -21,7 +21,7 @@ export default function Home() {
   }, []);
 
   const addStyles = () => {
-    const style = document.createElement('style');
+    const style = document.createElement("style");
     style.textContent = `
       @keyframes float-slow {
         0%, 100% { transform: translateY(0px); }
@@ -110,7 +110,10 @@ export default function Home() {
         {/* Animated background blobs */}
         <div className="absolute top-20 right-10 w-72 h-72 bg-primary/25 rounded-full mix-blend-multiply filter blur-3xl animate-pulse opacity-75 float-animation"></div>
         <div className="absolute -bottom-8 left-10 w-72 h-72 bg-accent/25 rounded-full mix-blend-multiply filter blur-3xl animate-pulse opacity-75 float-animation-reverse delay-2000"></div>
-        <div className="absolute top-1/2 left-1/4 w-96 h-96 bg-purple-400/15 rounded-full mix-blend-multiply filter blur-3xl animate-pulse opacity-60" style={{ animationDuration: '4s' }}></div>
+        <div
+          className="absolute top-1/2 left-1/4 w-96 h-96 bg-purple-400/15 rounded-full mix-blend-multiply filter blur-3xl animate-pulse opacity-60"
+          style={{ animationDuration: "4s" }}
+        ></div>
 
         <div className="container mx-auto px-4 relative z-10">
           <div className="grid md:grid-cols-2 gap-12 items-center">
@@ -373,8 +376,9 @@ export default function Home() {
                 className="relative rounded-lg p-8 border border-white/30 hover:border-white/60 transition-all duration-300 transform hover:translate-y-[-8px] hover:scale-105 fade-in-up overflow-hidden group"
                 style={{
                   animationDelay: delay,
-                  background: 'linear-gradient(135deg, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0.2) 100%)',
-                  backdropFilter: 'blur(10px)',
+                  background:
+                    "linear-gradient(135deg, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0.2) 100%)",
+                  backdropFilter: "blur(10px)",
                 }}
               >
                 <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
@@ -412,7 +416,10 @@ export default function Home() {
         <div className="absolute inset-0 opacity-30">
           <div className="absolute top-10 right-20 w-40 h-40 bg-white/25 rounded-full filter blur-3xl animate-pulse float-animation"></div>
           <div className="absolute bottom-0 left-1/3 w-60 h-60 bg-white/20 rounded-full filter blur-3xl animate-pulse float-animation-reverse delay-1000"></div>
-          <div className="absolute top-1/2 right-1/4 w-32 h-32 bg-white/15 rounded-full filter blur-2xl animate-pulse" style={{ animationDuration: '5s' }}></div>
+          <div
+            className="absolute top-1/2 right-1/4 w-32 h-32 bg-white/15 rounded-full filter blur-2xl animate-pulse"
+            style={{ animationDuration: "5s" }}
+          ></div>
         </div>
 
         <div
@@ -460,9 +467,7 @@ export default function Home() {
               </p>
             </div>
             <div>
-              <h4 className="font-semibold text-white mb-3">
-                For Residents
-              </h4>
+              <h4 className="font-semibold text-white mb-3">For Residents</h4>
               <ul className="space-y-2 text-sm text-gray-300">
                 <li>
                   <Link

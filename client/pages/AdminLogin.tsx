@@ -8,7 +8,7 @@ import { Building2, Mail, Lock, AlertCircle } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
 const addLoginStyles = () => {
-  const style = document.createElement('style');
+  const style = document.createElement("style");
   style.textContent = `
     @keyframes gradient-shift {
       0%, 100% { background-position: 0% 50%; }
@@ -106,7 +106,10 @@ export default function AdminLogin() {
       {/* Animated background blobs with enhanced effects */}
       <div className="absolute top-10 right-10 w-64 h-64 bg-primary/25 rounded-full mix-blend-multiply filter blur-3xl animate-pulse opacity-75"></div>
       <div className="absolute -bottom-8 -left-8 w-64 h-64 bg-accent/25 rounded-full mix-blend-multiply filter blur-3xl animate-pulse opacity-75 delay-2000"></div>
-      <div className="absolute top-1/3 left-1/2 w-96 h-96 bg-purple-300/15 rounded-full mix-blend-multiply filter blur-3xl animate-pulse" style={{ animationDuration: '4s' }}></div>
+      <div
+        className="absolute top-1/3 left-1/2 w-96 h-96 bg-purple-300/15 rounded-full mix-blend-multiply filter blur-3xl animate-pulse"
+        style={{ animationDuration: "4s" }}
+      ></div>
       {/* Gradient overlay */}
       <div className="absolute inset-0 bg-gradient-to-br from-white/20 to-transparent opacity-40 pointer-events-none"></div>
 

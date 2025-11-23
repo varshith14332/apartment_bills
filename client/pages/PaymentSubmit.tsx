@@ -18,7 +18,7 @@ import { useToast } from "@/hooks/use-toast";
 type SubmissionStatus = "idle" | "loading" | "success" | "error";
 
 const addPaymentStyles = () => {
-  const style = document.createElement('style');
+  const style = document.createElement("style");
   style.textContent = `
     @keyframes float-animation {
       0%, 100% { transform: translateY(0px); }
@@ -288,8 +288,9 @@ export default function PaymentSubmit() {
             className="rounded-lg p-8 fade-in-up border border-white/30 overflow-hidden"
             style={{
               animationDelay: "0.3s",
-              background: 'linear-gradient(135deg, rgba(255,255,255,0.5) 0%, rgba(255,255,255,0.3) 100%)',
-              backdropFilter: 'blur(12px)',
+              background:
+                "linear-gradient(135deg, rgba(255,255,255,0.5) 0%, rgba(255,255,255,0.3) 100%)",
+              backdropFilter: "blur(12px)",
             }}
           >
             <form onSubmit={handleSubmit} className="space-y-6">
@@ -518,7 +519,14 @@ export default function PaymentSubmit() {
 
           {/* Info Section */}
           <div className="mt-12 grid md:grid-cols-3 gap-6">
-            <div className="p-4 rounded-lg border border-blue-200/50 overflow-hidden group hover:border-blue-300/70 transition-all duration-300" style={{ background: 'linear-gradient(135deg, rgba(219,234,254,0.6), rgba(191,219,254,0.4))', backdropFilter: 'blur(8px)' }}>
+            <div
+              className="p-4 rounded-lg border border-blue-200/50 overflow-hidden group hover:border-blue-300/70 transition-all duration-300"
+              style={{
+                background:
+                  "linear-gradient(135deg, rgba(219,234,254,0.6), rgba(191,219,254,0.4))",
+                backdropFilter: "blur(8px)",
+              }}
+            >
               <h3 className="font-semibold text-blue-900 mb-2">
                 What happens next?
               </h3>
@@ -528,7 +536,14 @@ export default function PaymentSubmit() {
               </p>
             </div>
 
-            <div className="p-4 rounded-lg border border-green-200/50 overflow-hidden group hover:border-green-300/70 transition-all duration-300" style={{ background: 'linear-gradient(135deg, rgba(220,252,231,0.6), rgba(187,247,208,0.4))', backdropFilter: 'blur(8px)' }}>
+            <div
+              className="p-4 rounded-lg border border-green-200/50 overflow-hidden group hover:border-green-300/70 transition-all duration-300"
+              style={{
+                background:
+                  "linear-gradient(135deg, rgba(220,252,231,0.6), rgba(187,247,208,0.4))",
+                backdropFilter: "blur(8px)",
+              }}
+            >
               <h3 className="font-semibold text-green-900 mb-2">
                 Keep your proof
               </h3>
@@ -537,7 +552,14 @@ export default function PaymentSubmit() {
               </p>
             </div>
 
-            <div className="p-4 rounded-lg border border-orange-200/50 overflow-hidden group hover:border-orange-300/70 transition-all duration-300" style={{ background: 'linear-gradient(135deg, rgba(254,237,220,0.6), rgba(253,230,198,0.4))', backdropFilter: 'blur(8px)' }}>
+            <div
+              className="p-4 rounded-lg border border-orange-200/50 overflow-hidden group hover:border-orange-300/70 transition-all duration-300"
+              style={{
+                background:
+                  "linear-gradient(135deg, rgba(254,237,220,0.6), rgba(253,230,198,0.4))",
+                backdropFilter: "blur(8px)",
+              }}
+            >
               <h3 className="font-semibold text-orange-900 mb-2">Questions?</h3>
               <p className="text-sm text-orange-800">
                 Contact the treasurer at treasury@apartment.local for more
