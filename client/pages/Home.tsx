@@ -445,70 +445,70 @@ export default function Home() {
           <div className="absolute top-0 right-0 w-96 h-96 bg-primary/20 rounded-full filter blur-3xl"></div>
           <div className="absolute bottom-0 left-0 w-96 h-96 bg-accent/10 rounded-full filter blur-3xl"></div>
         </div>
-        <div className="container mx-auto px-4">
+        <div className="container mx-auto px-4 relative z-10">
           <div
             className="grid md:grid-cols-4 gap-8 mb-8 fade-in"
             style={{ animationDelay: "0.6s" }}
           >
             <div>
               <div className="flex items-center gap-2 mb-4">
-                <Building2 className="w-6 h-6 text-primary" />
-                <span className="font-bold text-foreground">Treasury</span>
+                <Building2 className="w-6 h-6 text-blue-400" />
+                <span className="font-bold text-white">Treasury</span>
               </div>
-              <p className="text-sm text-muted-foreground">
+              <p className="text-sm text-gray-300">
                 Modern apartment financial management made simple.
               </p>
             </div>
             <div>
-              <h4 className="font-semibold text-foreground mb-3">
+              <h4 className="font-semibold text-white mb-3">
                 For Residents
               </h4>
-              <ul className="space-y-2 text-sm text-muted-foreground">
+              <ul className="space-y-2 text-sm text-gray-300">
                 <li>
                   <Link
                     to="/submit-payment"
-                    className="hover:text-primary transition"
+                    className="hover:text-blue-400 transition"
                   >
                     Submit Payment
                   </Link>
                 </li>
                 <li>
-                  <a href="#" className="hover:text-primary transition">
+                  <a href="#" className="hover:text-blue-400 transition">
                     Payment Status
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="hover:text-primary transition">
+                  <a href="#" className="hover:text-blue-400 transition">
                     FAQ
                   </a>
                 </li>
               </ul>
             </div>
             <div>
-              <h4 className="font-semibold text-foreground mb-3">For Admin</h4>
-              <ul className="space-y-2 text-sm text-muted-foreground">
+              <h4 className="font-semibold text-white mb-3">For Admin</h4>
+              <ul className="space-y-2 text-sm text-gray-300">
                 <li>
                   <Link
                     to="/admin/login"
-                    className="hover:text-primary transition"
+                    className="hover:text-blue-400 transition"
                   >
                     Admin Login
                   </Link>
                 </li>
                 <li>
-                  <a href="#" className="hover:text-primary transition">
+                  <a href="#" className="hover:text-blue-400 transition">
                     Documentation
                   </a>
                 </li>
               </ul>
             </div>
             <div>
-              <h4 className="font-semibold text-foreground mb-3">Contact</h4>
-              <ul className="space-y-2 text-sm text-muted-foreground">
+              <h4 className="font-semibold text-white mb-3">Contact</h4>
+              <ul className="space-y-2 text-sm text-gray-300">
                 <li>
                   <a
                     href="mailto:support@treasury.local"
-                    className="hover:text-primary transition"
+                    className="hover:text-blue-400 transition"
                   >
                     support@treasury.local
                   </a>
@@ -516,7 +516,7 @@ export default function Home() {
                 <li>
                   <a
                     href="tel:+91-90000-00000"
-                    className="hover:text-primary transition"
+                    className="hover:text-blue-400 transition"
                   >
                     +91 90000 00000
                   </a>
@@ -524,7 +524,7 @@ export default function Home() {
               </ul>
             </div>
           </div>
-          <div className="border-t border-border pt-8 text-center text-sm text-muted-foreground">
+          <div className="border-t border-white/10 pt-8 text-center text-sm text-gray-400">
             <p>© 2024 Apartment Treasury Management. All rights reserved.</p>
           </div>
         </div>
