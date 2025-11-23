@@ -3,7 +3,8 @@
 .env.local
 .env.*.local
 node_modules
-pnpm-lock.yaml
+# Keep lockfile for deterministic installs
+# pnpm-lock.yaml REMOVED from ignore
 package-lock.json
 yarn.lock
 .DS_Store
@@ -15,4 +16,5 @@ coverage
 .vitest
 vitest.config.ts
 vite.config.server.ts
-vite.config.ts
+# Keep Vite client config for build
+# Removed vite.config.ts from ignore
