@@ -54,6 +54,7 @@ Netlify's configuration file with:
 ```
 
 **Key Settings:**
+
 - **command**: Build command (installs dependencies and builds SPA)
 - **functions**: Directory containing Netlify functions
 - **publish**: Output directory for the built SPA
@@ -70,12 +71,14 @@ pnpm dev
 ```
 
 Test endpoints:
+
 - SPA: `http://localhost:8080/`
 - API: `http://localhost:8080/api/ping`
 
 ### 2. Connect to Netlify
 
 **Option A: Via Netlify UI**
+
 1. Push code to GitHub, GitLab, or Bitbucket
 2. Go to [Netlify Dashboard](https://app.netlify.com)
 3. Click "Add new site" → "Import an existing project"
@@ -83,6 +86,7 @@ Test endpoints:
 5. Netlify auto-detects `netlify.toml` configuration
 
 **Option B: Via Builder.io MCP**
+
 1. Click [Connect to Netlify](#open-mcp-popover) in Builder.io
 2. Authorize Netlify access
 3. Select project to deploy
@@ -148,20 +152,21 @@ Contains the built React SPA:
 
 ## Key Differences from Vercel
 
-| Feature | Vercel | Netlify |
-|---------|--------|---------|
-| Config File | `vercel.json` | `netlify.toml` |
-| Functions Path | `api/**/*.ts` | `netlify/functions/` |
-| Bundler | Webpack | esbuild |
-| Environment | `vercel.json` env | Site Settings or `.env` |
-| Cold Starts | ~200-500ms | ~100-300ms |
-| Routing | `rewrites` | `redirects` |
+| Feature        | Vercel            | Netlify                 |
+| -------------- | ----------------- | ----------------------- |
+| Config File    | `vercel.json`     | `netlify.toml`          |
+| Functions Path | `api/**/*.ts`     | `netlify/functions/`    |
+| Bundler        | Webpack           | esbuild                 |
+| Environment    | `vercel.json` env | Site Settings or `.env` |
+| Cold Starts    | ~200-500ms        | ~100-300ms              |
+| Routing        | `rewrites`        | `redirects`             |
 
 ## Troubleshooting
 
 ### Issue: API Routes Not Working
 
 **Solution:**
+
 - Verify `netlify.toml` redirect: `/api/*` → `/.netlify/functions/api`
 - Check `netlify/functions/api.ts` exports proper handler
 - Test: `curl https://your-site.netlify.app/api/ping`
@@ -169,6 +174,7 @@ Contains the built React SPA:
 ### Issue: SPA Not Loading
 
 **Solution:**
+
 - Verify `publish` directory is `dist/spa`
 - Check vite.config.ts has `outDir: "dist/spa"`
 - Verify SPA fallback redirect: `/*` → `/index.html`
@@ -176,12 +182,14 @@ Contains the built React SPA:
 ### Issue: CORS Errors
 
 **Solution:**
+
 - Set `CORS_ORIGIN` environment variable in Netlify
 - Or use `*` for development (less secure)
 
 ### Issue: Build Fails
 
 **Solution:**
+
 - Check build logs in Netlify UI
 - Verify `pnpm run build` works locally
 - Ensure all environment variables are set
@@ -189,6 +197,7 @@ Contains the built React SPA:
 ### Issue: Function Timeout
 
 **Solution:**
+
 - Default timeout is 10 seconds (Pro plan: 26 seconds)
 - Optimize function code for serverless
 - Use Netlify Pro for longer timeouts
@@ -238,6 +247,7 @@ Contains the built React SPA:
 After deploying to Netlify:
 
 1. **Test API Endpoints**:
+
    ```bash
    # Test public endpoint
    curl https://your-site.netlify.app/api/ping
@@ -274,11 +284,13 @@ You can manage deployments directly from Builder.io:
 ## Migrating from Vercel
 
 Files to remove (Netlify uses different config):
+
 - ❌ `vercel.json` (use `netlify.toml` instead)
 - ❌ `.vercelignore` (use `.netlifyignore` instead)
 - ❌ `api/index.ts` (moved to `netlify/functions/api.ts`)
 
 Files added for Netlify:
+
 - ✅ `netlify.toml` - Netlify configuration
 - ✅ `.netlifyignore` - Files to exclude from build
 - ✅ `netlify/functions/api.ts` - Netlify function handler
@@ -293,11 +305,13 @@ Files added for Netlify:
 ## Next Steps
 
 1. **Test Locally**:
+
    ```bash
    pnpm install && pnpm build && pnpm dev
    ```
 
 2. **Push to Git**:
+
    ```bash
    git add .
    git commit -m "Migrate from Vercel to Netlify"
