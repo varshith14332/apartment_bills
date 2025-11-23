@@ -378,24 +378,26 @@ export default function Home() {
                 }}
               >
                 <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-6">
-                  <Icon className="w-6 h-6 text-primary" />
+                <div className="relative z-10">
+                  <div className="w-12 h-12 bg-gradient-to-br from-primary/20 to-primary/10 rounded-lg flex items-center justify-center mb-6 group-hover:from-primary/30 group-hover:to-primary/15 transition-all duration-300">
+                    <Icon className="w-6 h-6 text-primary" />
+                  </div>
+                  <h3 className="text-xl font-semibold text-foreground mb-3">
+                    {title}
+                  </h3>
+                  <p className="text-muted-foreground mb-4">{description}</p>
+                  <ul className="space-y-2">
+                    {points.map((point) => (
+                      <li
+                        key={point}
+                        className="flex items-center gap-2 text-sm text-muted-foreground"
+                      >
+                        <span className="w-1.5 h-1.5 bg-primary rounded-full" />
+                        {point}
+                      </li>
+                    ))}
+                  </ul>
                 </div>
-                <h3 className="text-xl font-semibold text-foreground mb-3">
-                  {title}
-                </h3>
-                <p className="text-muted-foreground mb-4">{description}</p>
-                <ul className="space-y-2">
-                  {points.map((point) => (
-                    <li
-                      key={point}
-                      className="flex items-center gap-2 text-sm text-muted-foreground"
-                    >
-                      <span className="w-1.5 h-1.5 bg-primary rounded-full" />
-                      {point}
-                    </li>
-                  ))}
-                </ul>
               </div>
             ))}
           </div>
