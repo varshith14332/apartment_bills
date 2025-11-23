@@ -79,7 +79,7 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="w-full bg-background overflow-hidden">
+    <div className="w-full bg-background overflow-hidden relative">
       {/* Navigation */}
       <nav className="border-b border-border bg-white/50 backdrop-blur-lg sticky top-0 z-50">
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
