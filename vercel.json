@@ -6,11 +6,6 @@
   "env": {
     "JWT_SECRET": "@jwt_secret"
   },
-  "functions": {
-    "api/index.ts": {
-      "runtime": "nodejs20.x"
-    }
-  },
   "rewrites": [
     {
       "source": "/api/(.*)",
