@@ -106,10 +106,11 @@ export default function Home() {
       </nav>
 
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-br from-primary/10 via-background to-accent/5 py-16 md:py-32 overflow-hidden">
+      <section className="relative bg-gradient-to-br from-blue-50/40 via-purple-50/20 to-pink-50/40 py-16 md:py-32 overflow-hidden mesh-bg">
         {/* Animated background blobs */}
-        <div className="absolute top-20 right-10 w-72 h-72 bg-primary/20 rounded-full mix-blend-multiply filter blur-3xl animate-pulse opacity-70"></div>
-        <div className="absolute -bottom-8 left-10 w-72 h-72 bg-accent/20 rounded-full mix-blend-multiply filter blur-3xl animate-pulse opacity-70 delay-2000"></div>
+        <div className="absolute top-20 right-10 w-72 h-72 bg-primary/25 rounded-full mix-blend-multiply filter blur-3xl animate-pulse opacity-75 float-animation"></div>
+        <div className="absolute -bottom-8 left-10 w-72 h-72 bg-accent/25 rounded-full mix-blend-multiply filter blur-3xl animate-pulse opacity-75 float-animation-reverse delay-2000"></div>
+        <div className="absolute top-1/2 left-1/4 w-96 h-96 bg-purple-400/15 rounded-full mix-blend-multiply filter blur-3xl animate-pulse opacity-60" style={{ animationDuration: '4s' }}></div>
 
         <div className="container mx-auto px-4 relative z-10">
           <div className="grid md:grid-cols-2 gap-12 items-center">
