@@ -1,4 +1,5 @@
 import { Handler } from "@netlify/functions";
+import serverless from "serverless-http";
 import "dotenv/config";
 import express from "express";
 import cors from "cors";
