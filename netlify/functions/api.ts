@@ -368,20 +368,6 @@ app.use("/api", (_req, res) => {
   res.status(404).json({ error: "API endpoint not found" });
 });
 
-const handler: Handler = async (event, context) => {
-  try {
-    return new Promise((resolve, reject) => {
-      app(event as any, context as any, (err: any) => {
-        if (err) reject(err);
-      });
-    });
-  } catch (error) {
-    console.error("Function error:", error);
-    return {
-      statusCode: 500,
-      body: JSON.stringify({ error: "Internal server error" }),
-    };
-  }
-};
+const handler: Handler = serverless(app) as any;
 
 export { handler };
