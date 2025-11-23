@@ -2,11 +2,7 @@
   "version": 2,
   "buildCommand": "pnpm build",
   "outputDirectory": "dist/spa",
-  "functions": {
-    "api/index.ts": {
-      "runtime": "nodejs22.x"
-    }
-  },
+  "functions": {},
   "routes": [
     { "src": "/api/(.*)", "dest": "/api/$1" },
     { "handle": "filesystem" },
