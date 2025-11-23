@@ -1,7 +1,9 @@
 # Vercel Deployment Guide
 
 ## Overview
+
 This project is configured for production deployment on Vercel with:
+
 - **Frontend**: React SPA built to `dist/spa` with React Router 6
 - **API**: Serverless functions in `/api` directory using Express + serverless-http
 - **Runtime**: Node.js 20.x
@@ -27,12 +29,14 @@ project/
 ## Configuration Files
 
 ### vercel.json
+
 - **buildCommand**: `pnpm run build` (builds SPA to dist/spa)
 - **outputDirectory**: `dist/spa` (serves the built SPA)
 - **functions**: Configures serverless functions for `/api/**/*.ts`
 - **rewrites**: Routes `/api/*` requests to serverless handler and SPA routes to index.html
 
 ### Key Settings
+
 ```json
 {
   "version": 2,
@@ -49,6 +53,7 @@ project/
 ## Deployment Steps
 
 ### 1. Local Testing
+
 ```bash
 pnpm install
 pnpm build
@@ -56,17 +61,21 @@ pnpm dev
 ```
 
 ### 2. Connect to Vercel
+
 - Push code to GitHub, GitLab, or Bitbucket
 - Import project to Vercel dashboard
 - Vercel automatically detects `vercel.json` configuration
 
 ### 3. Environment Variables
+
 Set in Vercel Project Settings → Environment Variables:
+
 - `JWT_SECRET`: Secret key for JWT token generation
-- `CORS_ORIGIN`: CORS allowed origin (default: *)
+- `CORS_ORIGIN`: CORS allowed origin (default: \*)
 - `PING_MESSAGE`: Custom ping message (optional)
 
 ### 4. Deploy
+
 - Automatic: Push to main branch triggers deployment
 - Manual: Deploy button in Vercel dashboard
 
@@ -75,11 +84,13 @@ Set in Vercel Project Settings → Environment Variables:
 All routes are handled by `/api/index.ts` serverless function:
 
 ### Public Routes
+
 - `GET /api/ping` - Health check
 - `GET /api/demo` - Demo endpoint
 - `POST /api/admin/login` - Admin login
 
 ### Protected Routes (require Authorization header with JWT token)
+
 - `GET /api/admin/dashboard` - Dashboard data
 - `GET /api/admin/monthly-payments` - Monthly payment data
 - `GET /api/admin/recent-payments` - Recent payment records
@@ -89,6 +100,7 @@ All routes are handled by `/api/index.ts` serverless function:
 ## SPA Routes
 
 React Router 6 SPA configured in `client/App.tsx`:
+
 - `GET /` - Home page
 - All non-API routes served to SPA (index.html)
 - Client-side routing handles path navigation
@@ -96,11 +108,14 @@ React Router 6 SPA configured in `client/App.tsx`:
 ## Build Output
 
 ### dist/spa/
+
 Contains the built React SPA:
+
 - `index.html` - SPA entry point (served for all non-API routes)
 - `assets/` - JavaScript bundles, CSS, images
 
 ### Do NOT Include in Vercel
+
 - Server build artifacts (handled by serverless)
 - Node modules (installed during build)
 - Development files
@@ -108,27 +123,33 @@ Contains the built React SPA:
 ## Troubleshooting
 
 ### Error: "Function Runtimes must have a valid version"
+
 **Fixed in vercel.json**:
+
 - Runtime format is `nodejs20.x` (correct format)
 - Functions path is `api/**/*.ts` (glob pattern for auto-detection)
 
 ### API Routes Not Working
+
 - Verify `/api/index.ts` exports default handler
 - Check rewrites in vercel.json point to `/api/index`
 - Ensure environment variables are set
 
 ### SPA Not Serving
+
 - Verify `outputDirectory` is `dist/spa` in vercel.json
 - Check vite.config.ts has `outDir: "dist/spa"`
 - Ensure index.html fallback rewrite is configured
 
 ### CORS Issues
+
 - Set `CORS_ORIGIN` environment variable
 - Check Express CORS middleware configuration
 
 ## Local Development
 
 The development server uses Express middleware integrated with Vite:
+
 ```bash
 pnpm dev
 ```
