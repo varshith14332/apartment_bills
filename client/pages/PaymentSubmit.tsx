@@ -17,7 +17,26 @@ import { useToast } from "@/hooks/use-toast";
 
 type SubmissionStatus = "idle" | "loading" | "success" | "error";
 
+const addPaymentStyles = () => {
+  const style = document.createElement("style");
+  style.textContent = `
+    @keyframes float-animation {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-20px); }
+    }
+
+    @keyframes float-reverse {
+      0%, 100% { transform: translateY(-20px); }
+      50% { transform: translateY(0px); }
+    }
+  `;
+  document.head.appendChild(style);
+};
+
 export default function PaymentSubmit() {
+  useEffect(() => {
+    addPaymentStyles();
+  }, []);
   const { toast } = useToast();
   const [status, setStatus] = useState<SubmissionStatus>("idle");
   const [file, setFile] = useState<File | null>(null);
@@ -196,8 +215,12 @@ export default function PaymentSubmit() {
 
   if (status === "success") {
     return (
-      <div className="w-full bg-background min-h-screen">
-        <nav className="border-b border-border bg-white/50 backdrop-blur-lg sticky top-0 z-50">
+      <div className="w-full bg-gradient-to-br from-green-50/40 via-background to-blue-50/40 min-h-screen relative overflow-hidden">
+        {/* Background blobs */}
+        <div className="absolute top-20 right-10 w-72 h-72 bg-green-300/15 rounded-full mix-blend-multiply filter blur-3xl opacity-60"></div>
+        <div className="absolute bottom-0 left-10 w-72 h-72 bg-blue-300/15 rounded-full mix-blend-multiply filter blur-3xl opacity-60"></div>
+
+        <nav className="border-b border-border bg-white/50 backdrop-blur-lg sticky top-0 z-50 relative">
           <div className="container mx-auto px-4 py-4 flex items-center gap-2">
             <Building2 className="w-8 h-8 text-primary" />
             <span className="text-xl font-bold text-foreground">
@@ -206,10 +229,10 @@ export default function PaymentSubmit() {
           </div>
         </nav>
 
-        <div className="container mx-auto px-4 py-16">
+        <div className="container mx-auto px-4 py-16 relative z-10">
           <div className="max-w-md mx-auto text-center fade-in-up">
             <div className="mb-6 flex justify-center scale-in">
-              <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center float">
+              <div className="w-16 h-16 bg-gradient-to-br from-green-200 to-green-100 rounded-full flex items-center justify-center">
                 <CheckCircle2 className="w-8 h-8 text-green-600" />
               </div>
             </div>
@@ -230,9 +253,13 @@ export default function PaymentSubmit() {
   }
 
   return (
-    <div className="w-full bg-background min-h-screen">
+    <div className="w-full bg-gradient-to-b from-blue-50/40 via-background to-purple-50/40 min-h-screen relative overflow-hidden">
+      {/* Background decorative elements */}
+      <div className="absolute top-0 right-0 w-96 h-96 bg-blue-300/15 rounded-full mix-blend-multiply filter blur-3xl opacity-50"></div>
+      <div className="absolute bottom-0 left-0 w-96 h-96 bg-purple-300/15 rounded-full mix-blend-multiply filter blur-3xl opacity-50"></div>
+
       {/* Navigation */}
-      <nav className="border-b border-border bg-white/50 backdrop-blur-lg sticky top-0 z-50">
+      <nav className="border-b border-border bg-white/50 backdrop-blur-lg sticky top-0 z-50 relative">
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
           <Link
             to="/"
@@ -245,7 +272,7 @@ export default function PaymentSubmit() {
         </div>
       </nav>
 
-      <div className="container mx-auto px-4 py-12">
+      <div className="container mx-auto px-4 py-12 relative z-10">
         <div className="max-w-2xl mx-auto">
           <div className="mb-8 fade-in-up" style={{ animationDelay: "0.2s" }}>
             <h1 className="text-3xl font-bold text-foreground mb-2">
@@ -258,8 +285,13 @@ export default function PaymentSubmit() {
           </div>
 
           <Card
-            className="glass rounded-lg p-8 fade-in-up"
-            style={{ animationDelay: "0.3s" }}
+            className="rounded-lg p-8 fade-in-up border border-white/30 overflow-hidden"
+            style={{
+              animationDelay: "0.3s",
+              background:
+                "linear-gradient(135deg, rgba(255,255,255,0.5) 0%, rgba(255,255,255,0.3) 100%)",
+              backdropFilter: "blur(12px)",
+            }}
           >
             <form onSubmit={handleSubmit} className="space-y-6">
               {/* Flat Number and Resident Info */}
@@ -487,7 +519,14 @@ export default function PaymentSubmit() {
 
           {/* Info Section */}
           <div className="mt-12 grid md:grid-cols-3 gap-6">
-            <div className="p-4 bg-blue-50 border border-blue-200 rounded-lg">
+            <div
+              className="p-4 rounded-lg border border-blue-200/50 overflow-hidden group hover:border-blue-300/70 transition-all duration-300"
+              style={{
+                background:
+                  "linear-gradient(135deg, rgba(219,234,254,0.6), rgba(191,219,254,0.4))",
+                backdropFilter: "blur(8px)",
+              }}
+            >
               <h3 className="font-semibold text-blue-900 mb-2">
                 What happens next?
               </h3>
@@ -497,7 +536,14 @@ export default function PaymentSubmit() {
               </p>
             </div>
 
-            <div className="p-4 bg-green-50 border border-green-200 rounded-lg">
+            <div
+              className="p-4 rounded-lg border border-green-200/50 overflow-hidden group hover:border-green-300/70 transition-all duration-300"
+              style={{
+                background:
+                  "linear-gradient(135deg, rgba(220,252,231,0.6), rgba(187,247,208,0.4))",
+                backdropFilter: "blur(8px)",
+              }}
+            >
               <h3 className="font-semibold text-green-900 mb-2">
                 Keep your proof
               </h3>
@@ -506,7 +552,14 @@ export default function PaymentSubmit() {
               </p>
             </div>
 
-            <div className="p-4 bg-orange-50 border border-orange-200 rounded-lg">
+            <div
+              className="p-4 rounded-lg border border-orange-200/50 overflow-hidden group hover:border-orange-300/70 transition-all duration-300"
+              style={{
+                background:
+                  "linear-gradient(135deg, rgba(254,237,220,0.6), rgba(253,230,198,0.4))",
+                backdropFilter: "blur(8px)",
+              }}
+            >
               <h3 className="font-semibold text-orange-900 mb-2">Questions?</h3>
               <p className="text-sm text-orange-800">
                 Contact the treasurer at treasury@apartment.local for more

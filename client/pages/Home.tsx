@@ -20,8 +20,66 @@ export default function Home() {
     setIsVisible(true);
   }, []);
 
+  const addStyles = () => {
+    const style = document.createElement("style");
+    style.textContent = `
+      @keyframes float-slow {
+        0%, 100% { transform: translateY(0px); }
+        50% { transform: translateY(-20px); }
+      }
+
+      @keyframes float-reverse {
+        0%, 100% { transform: translateY(-20px); }
+        50% { transform: translateY(0px); }
+      }
+
+      @keyframes mesh-gradient {
+        0%, 100% { background-position: 0% 0%, 100% 0%, 0% 100%, 100% 100%; }
+        25% { background-position: 50% 50%, 100% 0%, 0% 100%, 100% 100%; }
+        50% { background-position: 100% 100%, 100% 0%, 0% 100%, 100% 100%; }
+        75% { background-position: 50% 50%, 0% 100%, 100% 0%, 100% 100%; }
+      }
+
+      @keyframes shimmer {
+        0% { transform: translateX(-1000px); }
+        100% { transform: translateX(1000px); }
+      }
+
+      .float-animation {
+        animation: float-slow 6s ease-in-out infinite;
+      }
+
+      .float-animation-reverse {
+        animation: float-reverse 8s ease-in-out infinite;
+      }
+
+      .mesh-bg {
+        background: linear-gradient(135deg, rgba(59,130,246,0.15) 0%, rgba(99,102,241,0.1) 25%, rgba(139,92,246,0.1) 75%, rgba(236,72,153,0.15) 100%);
+        background-size: 400% 400%;
+        animation: mesh-gradient 15s ease infinite;
+      }
+
+      .shimmer-overlay::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+        animation: shimmer 3s infinite;
+        pointer-events: none;
+      }
+    `;
+    document.head.appendChild(style);
+  };
+
+  useEffect(() => {
+    addStyles();
+  }, []);
+
   return (
-    <div className="w-full bg-background overflow-hidden">
+    <div className="w-full bg-background overflow-hidden relative">
       {/* Navigation */}
       <nav className="border-b border-border bg-white/50 backdrop-blur-lg sticky top-0 z-50">
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
@@ -48,10 +106,14 @@ export default function Home() {
       </nav>
 
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-br from-primary/10 via-background to-accent/5 py-16 md:py-32 overflow-hidden">
+      <section className="relative bg-gradient-to-br from-blue-50/40 via-purple-50/20 to-pink-50/40 py-16 md:py-32 overflow-hidden mesh-bg">
         {/* Animated background blobs */}
-        <div className="absolute top-20 right-10 w-72 h-72 bg-primary/20 rounded-full mix-blend-multiply filter blur-3xl animate-pulse opacity-70"></div>
-        <div className="absolute -bottom-8 left-10 w-72 h-72 bg-accent/20 rounded-full mix-blend-multiply filter blur-3xl animate-pulse opacity-70 delay-2000"></div>
+        <div className="absolute top-20 right-10 w-72 h-72 bg-primary/25 rounded-full mix-blend-multiply filter blur-3xl animate-pulse opacity-75 float-animation"></div>
+        <div className="absolute -bottom-8 left-10 w-72 h-72 bg-accent/25 rounded-full mix-blend-multiply filter blur-3xl animate-pulse opacity-75 float-animation-reverse delay-2000"></div>
+        <div
+          className="absolute top-1/2 left-1/4 w-96 h-96 bg-purple-400/15 rounded-full mix-blend-multiply filter blur-3xl animate-pulse opacity-60"
+          style={{ animationDuration: "4s" }}
+        ></div>
 
         <div className="container mx-auto px-4 relative z-10">
           <div className="grid md:grid-cols-2 gap-12 items-center">
@@ -127,7 +189,7 @@ export default function Home() {
       </section>
 
       {/* Quick Stats / Dashboard Teaser */}
-      <section className="py-12 md:py-16 bg-white/50 backdrop-blur-lg border-y border-border">
+      <section className="py-12 md:py-16 bg-gradient-to-r from-white/40 via-blue-50/30 to-white/40 backdrop-blur-xl border-y border-white/20 relative overflow-hidden shimmer-overlay">
         <div className="container mx-auto px-4">
           <h2
             className="text-3xl md:text-4xl font-bold text-foreground mb-10 text-center fade-in"
@@ -223,7 +285,10 @@ export default function Home() {
       </section>
 
       {/* Features Section */}
-      <section className="py-16 md:py-24">
+      <section className="py-16 md:py-24 relative bg-gradient-to-b from-slate-50/40 via-background to-slate-50/40 overflow-hidden">
+        {/* Decorative background elements */}
+        <div className="absolute top-0 right-0 w-96 h-96 bg-blue-200/10 rounded-full filter blur-3xl -z-10"></div>
+        <div className="absolute bottom-0 left-0 w-96 h-96 bg-purple-200/10 rounded-full filter blur-3xl -z-10"></div>
         <div className="container mx-auto px-4">
           <h2
             className="text-3xl md:text-4xl font-bold text-foreground mb-12 text-center fade-in"
@@ -308,27 +373,35 @@ export default function Home() {
             ].map(({ icon: Icon, title, description, points, delay }, idx) => (
               <div
                 key={title}
-                className="glass rounded-lg p-8 hover:glass-dark transition-all duration-300 border border-white/20 hover:border-white/40 transform hover:translate-y-[-8px] hover:scale-105 fade-in-up"
-                style={{ animationDelay: delay }}
+                className="relative rounded-lg p-8 border border-white/30 hover:border-white/60 transition-all duration-300 transform hover:translate-y-[-8px] hover:scale-105 fade-in-up overflow-hidden group"
+                style={{
+                  animationDelay: delay,
+                  background:
+                    "linear-gradient(135deg, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0.2) 100%)",
+                  backdropFilter: "blur(10px)",
+                }}
               >
-                <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-6">
-                  <Icon className="w-6 h-6 text-primary" />
+                <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                <div className="relative z-10">
+                  <div className="w-12 h-12 bg-gradient-to-br from-primary/20 to-primary/10 rounded-lg flex items-center justify-center mb-6 group-hover:from-primary/30 group-hover:to-primary/15 transition-all duration-300">
+                    <Icon className="w-6 h-6 text-primary" />
+                  </div>
+                  <h3 className="text-xl font-semibold text-foreground mb-3">
+                    {title}
+                  </h3>
+                  <p className="text-muted-foreground mb-4">{description}</p>
+                  <ul className="space-y-2">
+                    {points.map((point) => (
+                      <li
+                        key={point}
+                        className="flex items-center gap-2 text-sm text-muted-foreground"
+                      >
+                        <span className="w-1.5 h-1.5 bg-primary rounded-full" />
+                        {point}
+                      </li>
+                    ))}
+                  </ul>
                 </div>
-                <h3 className="text-xl font-semibold text-foreground mb-3">
-                  {title}
-                </h3>
-                <p className="text-muted-foreground mb-4">{description}</p>
-                <ul className="space-y-2">
-                  {points.map((point) => (
-                    <li
-                      key={point}
-                      className="flex items-center gap-2 text-sm text-muted-foreground"
-                    >
-                      <span className="w-1.5 h-1.5 bg-primary rounded-full" />
-                      {point}
-                    </li>
-                  ))}
-                </ul>
               </div>
             ))}
           </div>
@@ -336,10 +409,17 @@ export default function Home() {
       </section>
 
       {/* CTA Section */}
-      <section className="relative bg-gradient-to-r from-primary via-primary/90 to-primary/80 text-primary-foreground py-16 md:py-24 overflow-hidden">
-        <div className="absolute inset-0 opacity-20">
-          <div className="absolute top-10 right-20 w-40 h-40 bg-white/30 rounded-full filter blur-3xl animate-pulse"></div>
-          <div className="absolute bottom-0 left-1/3 w-60 h-60 bg-white/20 rounded-full filter blur-3xl animate-pulse delay-1000"></div>
+      <section className="relative bg-gradient-to-r from-primary/95 via-primary/85 to-primary/90 text-primary-foreground py-16 md:py-24 overflow-hidden">
+        {/* Animated gradient overlay */}
+        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent opacity-60 mix-blend-overlay"></div>
+        {/* Animated background blobs */}
+        <div className="absolute inset-0 opacity-30">
+          <div className="absolute top-10 right-20 w-40 h-40 bg-white/25 rounded-full filter blur-3xl animate-pulse float-animation"></div>
+          <div className="absolute bottom-0 left-1/3 w-60 h-60 bg-white/20 rounded-full filter blur-3xl animate-pulse float-animation-reverse delay-1000"></div>
+          <div
+            className="absolute top-1/2 right-1/4 w-32 h-32 bg-white/15 rounded-full filter blur-2xl animate-pulse"
+            style={{ animationDuration: "5s" }}
+          ></div>
         </div>
 
         <div
@@ -366,71 +446,74 @@ export default function Home() {
       </section>
 
       {/* Footer */}
-      <footer className="bg-secondary/50 backdrop-blur-lg border-t border-border py-12">
-        <div className="container mx-auto px-4">
+      <footer className="relative bg-gradient-to-r from-slate-900/90 via-slate-800/85 to-slate-900/90 backdrop-blur-lg border-t border-white/10 py-12 overflow-hidden text-white">
+        {/* Decorative background elements */}
+        <div className="absolute inset-0 opacity-20">
+          <div className="absolute top-0 right-0 w-96 h-96 bg-primary/20 rounded-full filter blur-3xl"></div>
+          <div className="absolute bottom-0 left-0 w-96 h-96 bg-accent/10 rounded-full filter blur-3xl"></div>
+        </div>
+        <div className="container mx-auto px-4 relative z-10">
           <div
             className="grid md:grid-cols-4 gap-8 mb-8 fade-in"
             style={{ animationDelay: "0.6s" }}
           >
             <div>
               <div className="flex items-center gap-2 mb-4">
-                <Building2 className="w-6 h-6 text-primary" />
-                <span className="font-bold text-foreground">Treasury</span>
+                <Building2 className="w-6 h-6 text-blue-400" />
+                <span className="font-bold text-white">Treasury</span>
               </div>
-              <p className="text-sm text-muted-foreground">
+              <p className="text-sm text-gray-300">
                 Modern apartment financial management made simple.
               </p>
             </div>
             <div>
-              <h4 className="font-semibold text-foreground mb-3">
-                For Residents
-              </h4>
-              <ul className="space-y-2 text-sm text-muted-foreground">
+              <h4 className="font-semibold text-white mb-3">For Residents</h4>
+              <ul className="space-y-2 text-sm text-gray-300">
                 <li>
                   <Link
                     to="/submit-payment"
-                    className="hover:text-primary transition"
+                    className="hover:text-blue-400 transition"
                   >
                     Submit Payment
                   </Link>
                 </li>
                 <li>
-                  <a href="#" className="hover:text-primary transition">
+                  <a href="#" className="hover:text-blue-400 transition">
                     Payment Status
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="hover:text-primary transition">
+                  <a href="#" className="hover:text-blue-400 transition">
                     FAQ
                   </a>
                 </li>
               </ul>
             </div>
             <div>
-              <h4 className="font-semibold text-foreground mb-3">For Admin</h4>
-              <ul className="space-y-2 text-sm text-muted-foreground">
+              <h4 className="font-semibold text-white mb-3">For Admin</h4>
+              <ul className="space-y-2 text-sm text-gray-300">
                 <li>
                   <Link
                     to="/admin/login"
-                    className="hover:text-primary transition"
+                    className="hover:text-blue-400 transition"
                   >
                     Admin Login
                   </Link>
                 </li>
                 <li>
-                  <a href="#" className="hover:text-primary transition">
+                  <a href="#" className="hover:text-blue-400 transition">
                     Documentation
                   </a>
                 </li>
               </ul>
             </div>
             <div>
-              <h4 className="font-semibold text-foreground mb-3">Contact</h4>
-              <ul className="space-y-2 text-sm text-muted-foreground">
+              <h4 className="font-semibold text-white mb-3">Contact</h4>
+              <ul className="space-y-2 text-sm text-gray-300">
                 <li>
                   <a
                     href="mailto:support@treasury.local"
-                    className="hover:text-primary transition"
+                    className="hover:text-blue-400 transition"
                   >
                     support@treasury.local
                   </a>
@@ -438,7 +521,7 @@ export default function Home() {
                 <li>
                   <a
                     href="tel:+91-90000-00000"
-                    className="hover:text-primary transition"
+                    className="hover:text-blue-400 transition"
                   >
                     +91 90000 00000
                   </a>
@@ -446,7 +529,7 @@ export default function Home() {
               </ul>
             </div>
           </div>
-          <div className="border-t border-border pt-8 text-center text-sm text-muted-foreground">
+          <div className="border-t border-white/10 pt-8 text-center text-sm text-gray-400">
             <p>© 2024 Apartment Treasury Management. All rights reserved.</p>
           </div>
         </div>
