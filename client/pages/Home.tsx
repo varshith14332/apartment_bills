@@ -370,9 +370,14 @@ export default function Home() {
             ].map(({ icon: Icon, title, description, points, delay }, idx) => (
               <div
                 key={title}
-                className="glass rounded-lg p-8 hover:glass-dark transition-all duration-300 border border-white/20 hover:border-white/40 transform hover:translate-y-[-8px] hover:scale-105 fade-in-up"
-                style={{ animationDelay: delay }}
+                className="relative rounded-lg p-8 border border-white/30 hover:border-white/60 transition-all duration-300 transform hover:translate-y-[-8px] hover:scale-105 fade-in-up overflow-hidden group"
+                style={{
+                  animationDelay: delay,
+                  background: 'linear-gradient(135deg, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0.2) 100%)',
+                  backdropFilter: 'blur(10px)',
+                }}
               >
+                <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                 <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-6">
                   <Icon className="w-6 h-6 text-primary" />
                 </div>
