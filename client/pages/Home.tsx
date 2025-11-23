@@ -186,7 +186,7 @@ export default function Home() {
       </section>
 
       {/* Quick Stats / Dashboard Teaser */}
-      <section className="py-12 md:py-16 bg-white/50 backdrop-blur-lg border-y border-border">
+      <section className="py-12 md:py-16 bg-gradient-to-r from-white/40 via-blue-50/30 to-white/40 backdrop-blur-xl border-y border-white/20 relative overflow-hidden shimmer-overlay">
         <div className="container mx-auto px-4">
           <h2
             className="text-3xl md:text-4xl font-bold text-foreground mb-10 text-center fade-in"
