@@ -17,7 +17,26 @@ import { useToast } from "@/hooks/use-toast";
 
 type SubmissionStatus = "idle" | "loading" | "success" | "error";
 
+const addPaymentStyles = () => {
+  const style = document.createElement('style');
+  style.textContent = `
+    @keyframes float-animation {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-20px); }
+    }
+
+    @keyframes float-reverse {
+      0%, 100% { transform: translateY(-20px); }
+      50% { transform: translateY(0px); }
+    }
+  `;
+  document.head.appendChild(style);
+};
+
 export default function PaymentSubmit() {
+  useEffect(() => {
+    addPaymentStyles();
+  }, []);
   const { toast } = useToast();
   const [status, setStatus] = useState<SubmissionStatus>("idle");
   const [file, setFile] = useState<File | null>(null);
