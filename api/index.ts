@@ -252,26 +252,10 @@ const handleDashboard: RequestHandler = (req, res) => {
   }
 };
 
-// Ensure uploads directory exists
-const uploadsDir = path.join(process.cwd(), "uploads");
-if (!fs.existsSync(uploadsDir)) {
-  fs.mkdirSync(uploadsDir, { recursive: true });
-}
-
 // Configure multer for file uploads
+// In Vercel, use memory storage to avoid file system issues
 const upload = multer({
-  storage: multer.diskStorage({
-    destination: (_req, _file, cb) => {
-      cb(null, path.join(process.cwd(), "uploads/"));
-    },
-    filename: (_req, file, cb) => {
-      const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
-      cb(
-        null,
-        file.fieldname + "-" + uniqueSuffix + path.extname(file.originalname),
-      );
-    },
-  }),
+  storage: multer.memoryStorage(),
   limits: { fileSize: 5 * 1024 * 1024 },
   fileFilter: (_req, file, cb) => {
     const allowedMimes = ["image/jpeg", "image/png", "application/pdf"];
@@ -286,10 +270,17 @@ const upload = multer({
 const app = express();
 
 // Middleware
-app.use(cors());
+app.use(cors({
+  origin: process.env.CORS_ORIGIN || "*",
+  credentials: true,
+}));
 app.use(express.json({ limit: "10mb" }));
 app.use(express.urlencoded({ extended: true, limit: "10mb" }));
-app.use("/uploads", express.static(path.join(process.cwd(), "uploads")));
+
+// Health check endpoint
+app.get("/api/health", (_req, res) => {
+  res.json({ status: "ok", timestamp: new Date().toISOString() });
+});
 
 // Example API routes
 app.get("/api/ping", (_req, res) => {
@@ -389,9 +380,10 @@ app.get("/api/admin/export-report", authenticateToken, (_req, res) => {
   }
 });
 
-// SPA fallback - serve index.html for all non-API routes
-app.get("*", (_req, res) => {
+// 404 fallback for API
+app.use("/api", (_req, res) => {
   res.status(404).json({ error: "API endpoint not found" });
 });
 
+// Export as serverless handler
 export default serverless(app);
