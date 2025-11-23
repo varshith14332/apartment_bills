@@ -46,9 +46,21 @@ const handleAdminLogin = (req: any, res: any) => {
   const ADMIN_EMAIL = "ramanjaneyulucherala@gmail.com";
   const ADMIN_PASSWORD = "bnr@2025";
 
-  const { email, password } = req.body;
+  // Handle different ways the body might come through
+  let body = req.body;
+  if (typeof body === "string") {
+    try {
+      body = JSON.parse(body);
+    } catch (e) {
+      console.error("Failed to parse body:", body);
+      return res.status(400).json({ message: "Invalid request body" });
+    }
+  }
+
+  const { email, password } = body || {};
 
   if (!email || !password) {
+    console.error("Missing credentials", { email, password, body });
     return res.status(400).json({ message: "Email and password are required" });
   }
 
