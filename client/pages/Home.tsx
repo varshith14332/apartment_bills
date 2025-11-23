@@ -20,6 +20,64 @@ export default function Home() {
     setIsVisible(true);
   }, []);
 
+  const addStyles = () => {
+    const style = document.createElement('style');
+    style.textContent = `
+      @keyframes float-slow {
+        0%, 100% { transform: translateY(0px); }
+        50% { transform: translateY(-20px); }
+      }
+
+      @keyframes float-reverse {
+        0%, 100% { transform: translateY(-20px); }
+        50% { transform: translateY(0px); }
+      }
+
+      @keyframes mesh-gradient {
+        0%, 100% { background-position: 0% 0%, 100% 0%, 0% 100%, 100% 100%; }
+        25% { background-position: 50% 50%, 100% 0%, 0% 100%, 100% 100%; }
+        50% { background-position: 100% 100%, 100% 0%, 0% 100%, 100% 100%; }
+        75% { background-position: 50% 50%, 0% 100%, 100% 0%, 100% 100%; }
+      }
+
+      @keyframes shimmer {
+        0% { transform: translateX(-1000px); }
+        100% { transform: translateX(1000px); }
+      }
+
+      .float-animation {
+        animation: float-slow 6s ease-in-out infinite;
+      }
+
+      .float-animation-reverse {
+        animation: float-reverse 8s ease-in-out infinite;
+      }
+
+      .mesh-bg {
+        background: linear-gradient(135deg, rgba(59,130,246,0.15) 0%, rgba(99,102,241,0.1) 25%, rgba(139,92,246,0.1) 75%, rgba(236,72,153,0.15) 100%);
+        background-size: 400% 400%;
+        animation: mesh-gradient 15s ease infinite;
+      }
+
+      .shimmer-overlay::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+        animation: shimmer 3s infinite;
+        pointer-events: none;
+      }
+    `;
+    document.head.appendChild(style);
+  };
+
+  useEffect(() => {
+    addStyles();
+  }, []);
+
   return (
     <div className="w-full bg-background overflow-hidden">
       {/* Navigation */}
