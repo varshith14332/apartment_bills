@@ -197,20 +197,6 @@ export default function AdminLogin() {
             </Button>
           </form>
 
-          {/* Demo Info */}
-          <div className="mt-6 pt-6 border-t border-border">
-            <p className="text-xs text-muted-foreground text-center mb-3">
-              Demo Credentials
-            </p>
-            <div className="space-y-2 text-xs bg-secondary rounded p-3">
-              <p>
-                <strong>Email:</strong> admin@apartment.local
-              </p>
-              <p>
-                <strong>Password:</strong> admin123
-              </p>
-            </div>
-          </div>
         </Card>
 
         {/* Help Text */}

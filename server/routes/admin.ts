@@ -2,9 +2,9 @@ import { RequestHandler } from "express";
 import { AdminLoginRequest, AdminLoginResponse } from "@shared/api";
 import { generateToken } from "../middleware/auth";
 
-// Demo admin credentials - in production, use a real database
-const ADMIN_EMAIL = "admin@apartment.local";
-const ADMIN_PASSWORD = "admin123";
+// Admin credentials - in production, use a real database with hashed passwords
+const ADMIN_EMAIL = "ramanjaneyulucherala@gmail.com";
+const ADMIN_PASSWORD = "bnr@2025";
 
 export const handleAdminLogin: RequestHandler<
   any,
