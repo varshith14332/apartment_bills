@@ -4,7 +4,7 @@
   "installCommand": "pnpm install",
   "outputDirectory": "dist/spa",
   "env": {
-    "JWT_SECRET": "@jwt_secret"
+    "JWT_SECRET": "@JWT_SECRET"
   },
   "rewrites": [
     {
