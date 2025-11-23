@@ -405,10 +405,14 @@ export default function Home() {
       </section>
 
       {/* CTA Section */}
-      <section className="relative bg-gradient-to-r from-primary via-primary/90 to-primary/80 text-primary-foreground py-16 md:py-24 overflow-hidden">
-        <div className="absolute inset-0 opacity-20">
-          <div className="absolute top-10 right-20 w-40 h-40 bg-white/30 rounded-full filter blur-3xl animate-pulse"></div>
-          <div className="absolute bottom-0 left-1/3 w-60 h-60 bg-white/20 rounded-full filter blur-3xl animate-pulse delay-1000"></div>
+      <section className="relative bg-gradient-to-r from-primary/95 via-primary/85 to-primary/90 text-primary-foreground py-16 md:py-24 overflow-hidden">
+        {/* Animated gradient overlay */}
+        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent opacity-60 mix-blend-overlay"></div>
+        {/* Animated background blobs */}
+        <div className="absolute inset-0 opacity-30">
+          <div className="absolute top-10 right-20 w-40 h-40 bg-white/25 rounded-full filter blur-3xl animate-pulse float-animation"></div>
+          <div className="absolute bottom-0 left-1/3 w-60 h-60 bg-white/20 rounded-full filter blur-3xl animate-pulse float-animation-reverse delay-1000"></div>
+          <div className="absolute top-1/2 right-1/4 w-32 h-32 bg-white/15 rounded-full filter blur-2xl animate-pulse" style={{ animationDuration: '5s' }}></div>
         </div>
 
         <div
