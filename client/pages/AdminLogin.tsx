@@ -102,10 +102,13 @@ export default function AdminLogin() {
   };
 
   return (
-    <div className="w-full bg-gradient-to-br from-primary/10 via-background to-accent/10 min-h-screen flex items-center justify-center p-4 overflow-hidden relative">
-      {/* Animated background blobs */}
-      <div className="absolute top-10 right-10 w-64 h-64 bg-primary/20 rounded-full mix-blend-multiply filter blur-3xl animate-pulse opacity-70"></div>
-      <div className="absolute -bottom-8 -left-8 w-64 h-64 bg-accent/20 rounded-full mix-blend-multiply filter blur-3xl animate-pulse opacity-70 delay-2000"></div>
+    <div className="w-full bg-gradient-to-br from-blue-50/50 via-purple-50/30 to-pink-50/50 min-h-screen flex items-center justify-center p-4 overflow-hidden relative">
+      {/* Animated background blobs with enhanced effects */}
+      <div className="absolute top-10 right-10 w-64 h-64 bg-primary/25 rounded-full mix-blend-multiply filter blur-3xl animate-pulse opacity-75"></div>
+      <div className="absolute -bottom-8 -left-8 w-64 h-64 bg-accent/25 rounded-full mix-blend-multiply filter blur-3xl animate-pulse opacity-75 delay-2000"></div>
+      <div className="absolute top-1/3 left-1/2 w-96 h-96 bg-purple-300/15 rounded-full mix-blend-multiply filter blur-3xl animate-pulse" style={{ animationDuration: '4s' }}></div>
+      {/* Gradient overlay */}
+      <div className="absolute inset-0 bg-gradient-to-br from-white/20 to-transparent opacity-40 pointer-events-none"></div>
 
       <div className="w-full max-w-md relative z-10">
         {/* Logo */}
