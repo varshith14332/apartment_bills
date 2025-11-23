@@ -253,9 +253,13 @@ export default function PaymentSubmit() {
   }
 
   return (
-    <div className="w-full bg-background min-h-screen">
+    <div className="w-full bg-gradient-to-b from-blue-50/40 via-background to-purple-50/40 min-h-screen relative overflow-hidden">
+      {/* Background decorative elements */}
+      <div className="absolute top-0 right-0 w-96 h-96 bg-blue-300/15 rounded-full mix-blend-multiply filter blur-3xl opacity-50"></div>
+      <div className="absolute bottom-0 left-0 w-96 h-96 bg-purple-300/15 rounded-full mix-blend-multiply filter blur-3xl opacity-50"></div>
+
       {/* Navigation */}
-      <nav className="border-b border-border bg-white/50 backdrop-blur-lg sticky top-0 z-50">
+      <nav className="border-b border-border bg-white/50 backdrop-blur-lg sticky top-0 z-50 relative">
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
           <Link
             to="/"
@@ -268,7 +272,7 @@ export default function PaymentSubmit() {
         </div>
       </nav>
 
-      <div className="container mx-auto px-4 py-12">
+      <div className="container mx-auto px-4 py-12 relative z-10">
         <div className="max-w-2xl mx-auto">
           <div className="mb-8 fade-in-up" style={{ animationDelay: "0.2s" }}>
             <h1 className="text-3xl font-bold text-foreground mb-2">
