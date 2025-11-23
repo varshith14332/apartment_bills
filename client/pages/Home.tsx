@@ -439,7 +439,12 @@ export default function Home() {
       </section>
 
       {/* Footer */}
-      <footer className="bg-secondary/50 backdrop-blur-lg border-t border-border py-12">
+      <footer className="relative bg-gradient-to-r from-slate-900/90 via-slate-800/85 to-slate-900/90 backdrop-blur-lg border-t border-white/10 py-12 overflow-hidden text-white">
+        {/* Decorative background elements */}
+        <div className="absolute inset-0 opacity-20">
+          <div className="absolute top-0 right-0 w-96 h-96 bg-primary/20 rounded-full filter blur-3xl"></div>
+          <div className="absolute bottom-0 left-0 w-96 h-96 bg-accent/10 rounded-full filter blur-3xl"></div>
+        </div>
         <div className="container mx-auto px-4">
           <div
             className="grid md:grid-cols-4 gap-8 mb-8 fade-in"
