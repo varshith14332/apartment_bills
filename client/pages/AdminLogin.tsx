@@ -7,7 +7,33 @@ import { Label } from "@/components/ui/label";
 import { Building2, Mail, Lock, AlertCircle } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
+const addLoginStyles = () => {
+  const style = document.createElement('style');
+  style.textContent = `
+    @keyframes gradient-shift {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+    }
+
+    @keyframes float-soft {
+      0%, 100% { transform: translateY(0px) translateX(0px); }
+      33% { transform: translateY(-15px) translateX(10px); }
+      66% { transform: translateY(15px) translateX(-10px); }
+    }
+
+    .login-gradient {
+      background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+      background-size: 400% 400%;
+      animation: gradient-shift 15s ease infinite;
+    }
+  `;
+  document.head.appendChild(style);
+};
+
 export default function AdminLogin() {
+  useEffect(() => {
+    addLoginStyles();
+  }, []);
   const navigate = useNavigate();
   const { toast } = useToast();
   const [isLoading, setIsLoading] = useState(false);
