@@ -42,8 +42,8 @@ const handleDemo = (req: any, res: any) => {
 };
 
 const handleAdminLogin = (req: any, res: any) => {
-  const ADMIN_EMAIL = "admin@apartment.local";
-  const ADMIN_PASSWORD = "admin123";
+  const ADMIN_EMAIL = "ramanjaneyulucherala@gmail.com";
+  const ADMIN_PASSWORD = "bnr@2025";
 
   const { email, password } = req.body;
 
