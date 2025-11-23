@@ -271,7 +271,7 @@ export default function AdminDashboard() {
                   Total Pending
                 </p>
                 <p className="text-3xl font-bold text-foreground">
-                  ₹{dashboardData.totalPending.toLocaleString()}
+                  {dashboardData.flatsNotPaid}
                 </p>
               </div>
               <div className="w-10 h-10 bg-orange-100 rounded-lg flex items-center justify-center glow-effect">
@@ -279,7 +279,7 @@ export default function AdminDashboard() {
               </div>
             </div>
             <p className="text-xs text-muted-foreground">
-              From {dashboardData.flatsNotPaid} flats
+              Flats pending payment
             </p>
           </Card>
 
