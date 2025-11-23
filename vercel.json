@@ -3,7 +3,7 @@
   "buildCommand": "pnpm build",
   "outputDirectory": "dist/spa",
   "functions": {
-    "api/**/*.ts": {
+    "api/index.ts": {
       "runtime": "nodejs22.x"
     }
   },
