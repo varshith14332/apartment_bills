@@ -196,7 +196,6 @@ export default function AdminLogin() {
               {isLoading ? "Logging in..." : "Login"}
             </Button>
           </form>
-
         </Card>
 
         {/* Help Text */}
