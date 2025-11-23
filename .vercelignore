@@ -14,9 +14,3 @@ uploads
 *.log
 .npm
 .eslintcache
-.next
-.turbo
-dist/spa
-dist/server
-public/uploads
-.turboignore
