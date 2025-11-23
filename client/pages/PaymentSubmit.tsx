@@ -285,8 +285,12 @@ export default function PaymentSubmit() {
           </div>
 
           <Card
-            className="glass rounded-lg p-8 fade-in-up"
-            style={{ animationDelay: "0.3s" }}
+            className="rounded-lg p-8 fade-in-up border border-white/30 overflow-hidden"
+            style={{
+              animationDelay: "0.3s",
+              background: 'linear-gradient(135deg, rgba(255,255,255,0.5) 0%, rgba(255,255,255,0.3) 100%)',
+              backdropFilter: 'blur(12px)',
+            }}
           >
             <form onSubmit={handleSubmit} className="space-y-6">
               {/* Flat Number and Resident Info */}
