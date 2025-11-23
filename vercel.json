@@ -1,20 +1,24 @@
 {
   "version": 2,
-  "buildCommand": "pnpm run build",
+  "buildCommand": "pnpm install && pnpm run build",
   "installCommand": "pnpm install",
   "outputDirectory": "dist/spa",
+  "framework": "vite",
+  "env": {
+    "JWT_SECRET": "@jwt_secret"
+  },
+  "envPrefix": "VITE_",
   "functions": {
     "api/index.ts": {
-      "runtime": "nodejs20.x"
+      "runtime": "nodejs20.x",
+      "memory": 1024,
+      "maxDuration": 30
     }
-  },
-  "env": {
-    "JWT_SECRET": "your-secret"
   },
   "rewrites": [
     {
       "source": "/api/(.*)",
-      "destination": "/api/index"
+      "destination": "/api"
     },
     {
       "source": "/(.*)",
