@@ -5,16 +5,252 @@ import cors from "cors";
 import multer from "multer";
 import path from "path";
 import fs from "fs";
-import { handleDemo } from "../server/routes/demo";
-import { handleAdminLogin } from "../server/routes/admin";
-import {
-  handlePaymentSubmit,
-  getMonthlyPayments,
-  getRecentPayments,
-  getAllPayments,
-} from "../server/routes/payments";
-import { handleDashboard } from "../server/routes/dashboard";
-import { authenticateToken } from "../server/middleware/auth";
+
+// Import route handlers
+import type { RequestHandler } from "express";
+import jwt from "jsonwebtoken";
+
+// Route handlers
+const handleDemo: RequestHandler = (req, res) => {
+  const response = {
+    message: "Hello from Express server",
+  };
+  res.status(200).json(response);
+};
+
+const JWT_SECRET =
+  process.env.JWT_SECRET || "your-secret-key-change-in-production";
+
+const authenticateToken: RequestHandler = (req: any, res, next) => {
+  const authHeader = req.headers["authorization"];
+  const token = authHeader && authHeader.split(" ")[1];
+
+  if (!token) {
+    return res.status(401).json({ message: "No token provided" });
+  }
+
+  try {
+    const decoded = jwt.verify(token, JWT_SECRET) as any;
+    req.user = decoded;
+    next();
+  } catch (error) {
+    return res.status(401).json({ message: "Invalid token" });
+  }
+};
+
+const generateToken = (payload: {
+  id: string;
+  email: string;
+  name: string;
+}) => {
+  return jwt.sign(payload, JWT_SECRET, { expiresIn: "24h" });
+};
+
+// Admin routes
+const handleAdminLogin: RequestHandler = (req, res) => {
+  const ADMIN_EMAIL = "admin@apartment.local";
+  const ADMIN_PASSWORD = "admin123";
+
+  const { email, password } = req.body;
+
+  if (!email || !password) {
+    return res.status(400).json({ message: "Email and password are required" });
+  }
+
+  if (email === ADMIN_EMAIL && password === ADMIN_PASSWORD) {
+    const token = generateToken({
+      id: "admin-1",
+      email: email,
+      name: "Apartment Treasurer",
+    });
+
+    return res.json({
+      token,
+      admin: {
+        id: "admin-1",
+        email: email,
+        name: "Apartment Treasurer",
+      },
+    });
+  }
+
+  return res.status(401).json({ message: "Invalid email or password" });
+};
+
+// In-memory storage for payments
+interface PaymentRecord {
+  id: string;
+  flatNumber: string;
+  residentName: string;
+  residentType: "owner" | "tenant";
+  paymentPurpose: string;
+  amountPaid: number;
+  transactionId: string;
+  upiId?: string;
+  bankDetails?: string;
+  paymentDate: string;
+  notes?: string;
+  screenshotUrl: string;
+  month: string;
+  createdAt: Date;
+}
+
+const payments: PaymentRecord[] = [];
+
+const handlePaymentSubmit: RequestHandler = async (req, res) => {
+  try {
+    const {
+      flatNumber,
+      residentName,
+      residentType,
+      paymentPurpose,
+      amountPaid,
+      transactionId,
+      upiId,
+      bankDetails,
+      paymentDate,
+      notes,
+    } = req.body;
+
+    if (
+      !flatNumber ||
+      !residentName ||
+      !residentType ||
+      !paymentPurpose ||
+      !amountPaid ||
+      !transactionId ||
+      !paymentDate
+    ) {
+      return res.status(400).json({ message: "Missing required fields" });
+    }
+
+    if (!req.file) {
+      return res.status(400).json({ message: "Screenshot is required" });
+    }
+
+    const amount = parseFloat(amountPaid);
+    if (amount <= 0) {
+      return res.status(400).json({ message: "Amount must be greater than 0" });
+    }
+
+    const now = new Date();
+    const month = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(
+      2,
+      "0",
+    )}`;
+
+    const duplicate = payments.find(
+      (p) =>
+        p.transactionId === transactionId &&
+        p.flatNumber === flatNumber &&
+        p.month === month,
+    );
+
+    if (duplicate) {
+      return res.status(400).json({
+        message:
+          "This transaction ID has already been submitted for this flat this month",
+      });
+    }
+
+    const screenshotUrl = `/uploads/${req.file.filename}`;
+
+    const payment: PaymentRecord = {
+      id: `payment-${Date.now()}`,
+      flatNumber,
+      residentName,
+      residentType: residentType as "owner" | "tenant",
+      paymentPurpose,
+      amountPaid: amount,
+      transactionId,
+      upiId: upiId || "",
+      bankDetails: bankDetails || "",
+      paymentDate,
+      notes: notes || "",
+      screenshotUrl,
+      month,
+      createdAt: new Date(),
+    };
+
+    payments.push(payment);
+
+    res.status(201).json({
+      message: "Payment submitted successfully",
+      payment,
+    });
+  } catch (error) {
+    console.error("Error submitting payment:", error);
+    res.status(500).json({ message: "Failed to submit payment" });
+  }
+};
+
+const getDashboardData = (month: string) => {
+  const monthPayments = payments.filter((p) => p.month === month);
+  const totalCollected = monthPayments.reduce(
+    (sum, p) => sum + p.amountPaid,
+    0,
+  );
+  const uniqueFlats = new Set(monthPayments.map((p) => p.flatNumber));
+  const flatsPaid = uniqueFlats.size;
+  const totalFlats = 40;
+  const flatsNotPaid = totalFlats - flatsPaid;
+  const maintenancePerFlat = 5000;
+  const totalPending = flatsNotPaid * maintenancePerFlat;
+
+  return {
+    totalCollected,
+    totalPending,
+    flatsPaid,
+    flatsNotPaid,
+    month,
+  };
+};
+
+const getMonthlyPayments = (month: string) => {
+  return payments
+    .filter((p) => p.month === month)
+    .sort(
+      (a, b) =>
+        new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
+    );
+};
+
+const getRecentPayments = (limit: number = 10) => {
+  return payments
+    .sort(
+      (a, b) =>
+        new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
+    )
+    .slice(0, limit);
+};
+
+const getAllPayments = () => {
+  return payments;
+};
+
+const handleDashboard: RequestHandler = (req, res) => {
+  try {
+    let month = req.query.month as string;
+
+    if (!month) {
+      const now = new Date();
+      month = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(
+        2,
+        "0",
+      )}`;
+    }
+
+    if (!/^\d{4}-\d{2}$/.test(month)) {
+      return res.status(400).json({ message: "Invalid month format" });
+    }
+
+    const data = getDashboardData(month);
+    res.json(data);
+  } catch (error) {
+    console.error("Error fetching dashboard data:", error);
+    res.status(500).json({ message: "Failed to fetch dashboard data" });
+  }
+};
 
 // Ensure uploads directory exists
 const uploadsDir = path.join(process.cwd(), "uploads");
