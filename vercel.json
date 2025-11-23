@@ -1,21 +1,20 @@
 {
+  "version": 2,
   "buildCommand": "pnpm run build",
-  "outputDirectory": "dist/spa",
   "installCommand": "pnpm install",
-  "env": {
-    "JWT_SECRET": "@jwt_secret"
-  },
+  "outputDirectory": "dist/spa",
   "functions": {
     "api/index.ts": {
-      "runtime": "nodejs20.x",
-      "memory": 1024,
-      "maxDuration": 30
+      "runtime": "nodejs20.x"
     }
+  },
+  "env": {
+    "JWT_SECRET": "your-secret"
   },
   "rewrites": [
     {
       "source": "/api/(.*)",
-      "destination": "/api"
+      "destination": "/api/index"
     },
     {
       "source": "/(.*)",
