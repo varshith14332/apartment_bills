@@ -1,0 +1,39 @@
+import { RequestHandler } from "express";
+import { AdminLoginRequest, AdminLoginResponse } from "@shared/api";
+import { generateToken } from "../middleware/auth";
+
+// Demo admin credentials - in production, use a real database
+const ADMIN_EMAIL = "admin@apartment.local";
+const ADMIN_PASSWORD = "admin123";
+
+export const handleAdminLogin: RequestHandler<
+  any,
+  AdminLoginResponse,
+  AdminLoginRequest
+> = (req, res) => {
+  const { email, password } = req.body;
+
+  if (!email || !password) {
+    return res.status(400).json({ message: "Email and password are required" });
+  }
+
+  // Demo validation - replace with real database lookup and password hashing in production
+  if (email === ADMIN_EMAIL && password === ADMIN_PASSWORD) {
+    const token = generateToken({
+      id: "admin-1",
+      email: email,
+      name: "Apartment Treasurer",
+    });
+
+    return res.json({
+      token,
+      admin: {
+        id: "admin-1",
+        email: email,
+        name: "Apartment Treasurer",
+      },
+    });
+  }
+
+  return res.status(401).json({ message: "Invalid email or password" });
+};

@@ -1,0 +1,13 @@
+.git
+.gitignore
+README.md
+.env
+.env.local
+node_modules
+pnpm-lock.yaml
+.github
+.vscode
+.DS_Store
+dist
+uploads
+*.log
